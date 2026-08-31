@@ -1,0 +1,26 @@
+# الأسرار — لا تدخل الصورة أبداً
+.env
+*.session
+qr.jpg
+
+# بيئة التطوير المحلية
+venv/
+__pycache__/
+*.py[cod]
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# بيانات محلية
+database/
+downloads/
+logs/
+cookies/*.txt
+tools/
+_tmpdata/
+
+# وثائق لا يحتاجها التشغيل
+*.md
+!cookies/README.md
+requirements-lock.txt

@@ -15,7 +15,7 @@ from telegram.ext import (Application, ApplicationBuilder, CommandHandler,
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from config import (BOT_TOKEN, ADMIN_IDS, ADMIN_ID, LOG_PATH, LOCAL_BOT_API,
-                    USING_LOCAL_API, TG_UPLOAD_LIMIT_MB)
+                    USING_LOCAL_API, TG_UPLOAD_LIMIT_MB, PORT)
 from handlers import (start, download, subscription, payment, admin,
                       growth, inline)
 from services import media_tools
@@ -141,6 +141,13 @@ async def post_init(app: Application):
                 parse_mode=ParseMode.HTML)
         except Exception:
             pass
+
+    try:
+        me = await app.bot.get_me()
+        from utils import health
+        health.set_ready(f"@{me.username}")
+    except Exception:
+        pass
 
     print("=" * 55)
     print("🤖 البوت يعمل الآن")
@@ -268,6 +275,10 @@ def main():
         sys.exit(1)
 
     log.info(msg)
+
+    if PORT:
+        from utils import health
+        health.start(PORT)
 
     try:
         app = build_app()

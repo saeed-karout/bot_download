@@ -45,11 +45,31 @@ ADMIN_IDS.discard(0)
 ADMIN_CONTACT = os.getenv("ADMIN_CONTACT", "@Saeed_karout1")
 
 # ═══════════════════════════ المسارات ═══════════════════════════
-DOWNLOAD_DIR = _p('downloads')
-COOKIES_DIR = _p('cookies')
-DB_PATH = _p('database', 'bot.db')
-LOG_PATH = _p('logs', 'bot.log')
-TOOLS_DIR = _p('tools')
+# قابلة للضبط من البيئة — ضروري داخل الحاويات لتوجيه البيانات إلى قرص دائم.
+def _path_env(key, *default_parts):
+    val = (os.getenv(key) or '').strip()
+    if not val:
+        return _p(*default_parts)
+    return val if os.path.isabs(val) else _p(val)
+
+
+DATA_DIR = _path_env("DATA_DIR", 'data') if os.getenv("DATA_DIR") else None
+
+DOWNLOAD_DIR = _path_env("DOWNLOAD_DIR", 'downloads')
+COOKIES_DIR = _path_env("COOKIES_DIR", 'cookies')
+DB_PATH = _path_env("DB_PATH", 'database', 'bot.db')
+LOG_PATH = _path_env("LOG_PATH", 'logs', 'bot.log')
+TOOLS_DIR = _path_env("TOOLS_DIR", 'tools')
+
+# DATA_DIR يجمع كل ما يجب أن يبقى بعد إعادة النشر في مكان واحد
+if DATA_DIR:
+    if not os.getenv("DB_PATH"):
+        DB_PATH = os.path.join(DATA_DIR, 'bot.db')
+    if not os.getenv("COOKIES_DIR"):
+        COOKIES_DIR = os.path.join(DATA_DIR, 'cookies')
+
+# منفذ فحص الصحة — تطلبه بعض منصات الاستضافة لتعتبر الخدمة حيّة
+PORT = _env_int("PORT", 0)
 
 for _d in (DOWNLOAD_DIR, COOKIES_DIR, os.path.dirname(DB_PATH), os.path.dirname(LOG_PATH), TOOLS_DIR):
     os.makedirs(_d, exist_ok=True)
