@@ -1,0 +1,20 @@
+# ═══ الأساسيات ═══
+python-telegram-bot==21.6
+python-dotenv>=1.0.1
+APScheduler>=3.10.4
+requests>=2.32.0
+
+# ═══ محرك التنزيل ═══
+yt-dlp>=2026.8.19          # المحرك الرئيسي (أكثر من 1800 موقع)
+yt-dlp-ejs>=0.2.0          # حل تحديات JS ليوتيوب — إلزامي
+bgutil-ytdlp-pot-provider>=1.3.2   # PO Token ليوتيوب — إلزامي
+
+curl_cffi>=0.7            # انتحال بصمة المتصفح (يفتح مواقع تحجب البوتات)
+
+# ═══ محركات احتياطية ═══
+gallery-dl>=1.32.0         # إنستغرام/سناب/بنترست/تويتر — صور ومنشورات متعددة
+instaloader>=4.15.0        # احتياطي إنستغرام
+
+# ═══ متطلبات خارجية (ليست pip) ═══
+# ffmpeg  — لدمج الصوت والفيديو وتحويل MP3   → /installtools أو setup.py
+# deno    — محرك JavaScript ليوتيوب           → /installtools أو setup.py

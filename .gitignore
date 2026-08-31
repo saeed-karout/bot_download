@@ -1,0 +1,22 @@
+# ⚠️ الأسرار — لا تُرفع أبداً
+.env
+*.session
+
+# بيانات الدفع الشخصية — لا تُنشر في مستودع عام
+qr.jpg
+qr_*.jpg
+qr_*.png
+
+# البيانات
+database/
+downloads/
+logs/
+cookies/*.txt
+
+# الأدوات المنزّلة
+tools/
+venv/
+__pycache__/
+*.py[cod]
+.vscode/
+.idea/
